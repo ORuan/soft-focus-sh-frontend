@@ -1,0 +1,13 @@
+h2.title.is-white{
+    color: #fff;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+#container-cadastro{
+    width: 60rem !important;
+    height: 100vh;
+}
+body{
+  background-color: #282C34;
+}

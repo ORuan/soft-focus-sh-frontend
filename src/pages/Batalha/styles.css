@@ -1,0 +1,9 @@
+#container-cadastro{
+    height: 100% !important;
+    width: 70% !important;
+}
+
+h2.title{
+    text-align: center;
+    color:#333;
+}
