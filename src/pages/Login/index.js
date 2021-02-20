@@ -40,9 +40,13 @@ function Login() {
                     <input class="input" type="password" placeholder="Digite sua senha" />
                 </div>
             </div>
-            <div class="control">
-                <button class="button is-link is-fullwidth" onClick={getDataLogin} >Login</button>
-                <button class="button is-link is-fullwidth" onClick={() => { <Redirect to="/cadastro-users" /> }} >Não tem conta? Clique aqui</button>
+            <div className="columns">
+                <div className="column">
+                    <button className="button is-link is-fullwidth" onClick={getDataLogin}>Login</button>
+                </div>
+                <div className="column">
+                    <Link className="button is-link is-fullwidth" to="/cadastro-users"> Não tem conta? Crie uma aqui</Link>
+                </div>
             </div>
         </Container>
     );
