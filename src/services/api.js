@@ -2,13 +2,13 @@ import axios from 'axios';
 const ApiCreate = async (method, endpoint, data = null, form=false) => {
 
     const auth_token = localStorage.getItem('auth-token')
-    let content_type = 'application/json'
-
+    let header = {}
     if(form=true){
-        alert('oi')
-        content_type = 'multipart/form-data'
+        header = { 'Authorization': 'Token ' + auth_token, 'Content-Type': 'multipart/form-data'  }
+    }else{
+        header = { 'Authorization': 'Token ' + auth_token, 'Content-Type': 'application/json'  }
     }
-    const header = { 'Authorization': 'Token ' + auth_token, 'Content-Type': 'application/json'  }
+    
     return axios({
         "baseURL": `http://${process.env.REACT_APP_.BACKEND_ADDR}/`,
         "method": method,

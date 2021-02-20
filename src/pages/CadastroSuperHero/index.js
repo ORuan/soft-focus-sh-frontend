@@ -26,7 +26,6 @@ const getDataSuperHero = async () => {
 function CadastroSuperHero() {
     const [select, setSelect] = useState('')
     if (localStorage.getItem('auth-token') == null) {
-
         return <Redirect to="/login" />
     }
 

@@ -14,7 +14,7 @@ const getDataRegister = () => {
         "email": qs[0].value,
         "password": qs[1].value
     }
-    ApiCreate('POST', 'api/v1/users/', data)
+    ApiCreate('POST', 'api/v1/users/', data, false)
         .then((response) => {
             if (response.status == 200) {
                 //

@@ -6,7 +6,6 @@ import CadastroSuperHero from './pages/CadastroSuperHero';
 import HomePage from './pages/HomePage';
 import Batalha from './pages/Batalha';
 
-
 const Routes = () => {
     return (
         <BrowserRouter>

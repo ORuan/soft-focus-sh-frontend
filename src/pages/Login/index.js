@@ -11,10 +11,10 @@ const getDataLogin = async () => {
         "username": document.querySelectorAll('.input')[0].value.toString(),
         "password": document.querySelectorAll('.input')[1].value.toString()
     }
-
     await ApiCreate('POST', 'api-token-auth/', fields, false)
         .then(function (response) {
             localStorage.setItem('auth-token', response.data);
+                
         }).catch(function (error) {
             console.log(error);
         })
