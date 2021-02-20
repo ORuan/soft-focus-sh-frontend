@@ -17,7 +17,7 @@ const ApiCreate = async (method, endpoint, data = null, form = false) => {
     }
 
     return axios({
-        "baseURL": `http://${process.env.REACT_APP_.BACKEND_ADDR}/`,
+        "baseURL": `https://${process.env.REACT_APP_.BACKEND_ADDR}/`,
         "method": method,
         "url": endpoint,
         "data": data,
