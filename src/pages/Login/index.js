@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button, Container, Notification } from 'react-bulma-components'
 import 'bulma/css/bulma.css'
 import logo from '../../assets/logo.png'
@@ -13,10 +13,10 @@ const getDataLogin = async () => {
     }
     await ApiCreate('POST', 'api-token-auth/', fields, false)
         .then(function (response) {
-            localStorage.setItem('auth-token', response.data);
-                
+            localStorage.setItem('auth-token', response.data['token']);
+            return document.location.pathname = "/"
         }).catch(function (error) {
-            console.log(error);
+            alert(error);
         })
 }
 
@@ -42,6 +42,7 @@ function Login() {
             </div>
             <div class="control">
                 <button class="button is-link is-fullwidth" onClick={getDataLogin} >Login</button>
+                <button class="button is-link is-fullwidth" onClick={() => { <Redirect to="/cadastro-users" /> }} >Não tem conta? Clique aqui</button>
             </div>
         </Container>
     );

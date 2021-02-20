@@ -12,9 +12,9 @@
 img{
     justify-content: center;
 }
-
+h2,
 label.label{
-    color: #fff
+    color: #fff !important;
 }
 #navbar{
     background-color:#282C34;

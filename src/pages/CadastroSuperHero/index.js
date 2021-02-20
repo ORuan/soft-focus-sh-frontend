@@ -5,7 +5,6 @@ import { Button, Container, Notification, Navbar } from 'react-bulma-components'
 import 'bulma/css/bulma.css'
 import navabar_logo from '../../assets/superhero.png'
 import ApiCreate from '../../services/api'
-import VerifyOrRedirect from '../../services/utils'
 
 const getDataSuperHero = async () => {
     let file = new FormData()
@@ -16,45 +15,44 @@ const getDataSuperHero = async () => {
     file.append('weigth', document.querySelectorAll('.input')[3].value)
     file.append('power', document.querySelectorAll('.input')[4].value)
     file.append('universe', document.querySelectorAll('#value-hidden')[0].value)
-    file.append('super_hero_image-', document.querySelectorAll('.file-input')[0].files[0])
+    file.append('super_hero_image', document.querySelectorAll('.file-input')[0].files[0])
 
     await ApiCreate('POST', "api/v1/super-heros/", file, true).then(response => {
-        console.log(response.status)
+        console.log(file)
+        return document.location.pathname = "/"
     })
 }
 
 function CadastroSuperHero() {
     const [select, setSelect] = useState('')
     if (localStorage.getItem('auth-token') == null) {
-        return <Redirect to="/login" />
+        return document.location.pathname = "/login"
+
     }
 
     return (
         <>
-            <input hidden="true" value={select} id="value-hidden">
-            </input>
+            <input hidden={true} value={select} id="value-hidden" />
             <Navbar id="navbar">
                 <div className="navbar-brand">
                     <a className="navbar-item" href="/">
                         <img src={navabar_logo} width="112" height="28" />
                     </a>
                     <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
+                        <Link className="button is-light" to="/cadastro-super-hero">
+                            <strong>Criar SH</strong>
+                        </Link>
+                        <Link className="button is-primary" to="batalhar">Batalhar</Link>
                     </a>
                 </div>
                 <div id="navbarBasicExample" className="navbar-menu">
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <a className="button is-light">
+                                <Link className="button is-light" to="/cadastro-super-hero">
                                     <strong>Criar SH</strong>
-                                </a>
-                                <a className="button is-light">
-                                    <strong>Logout</strong>
-                                </a>
-                                <a className="button is-primary">Batalhar</a>
+                                </Link>
+                                <Link className="button is-primary" to="batalhar">Batalhar</Link>
                             </div>
                         </div>
                     </div>

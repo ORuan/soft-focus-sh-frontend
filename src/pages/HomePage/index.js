@@ -27,16 +27,23 @@ async function getToken() {
     const token = localStorage.getItem('auth-token')
     ApiCreate('GET', 'get-uuid-token/' + token + '/').then(response => {
         localStorage.setItem('uuid-token', response.data)
+        console.log(response.data)
+
     })
 }
 
 function HomePage() {
     const [superHeros, setsuperheros] = useState([])
+    const [uuid_token, setUuid_token] = useState(localStorage.getItem('uuid-token'))
+
 
     useEffect(async () => {
-        const data = await ApiCreate('GET', 'api/v1/users/' + localStorage.getItem('uuid-token') + '/super_hero/')
-        console.log(data.data)
-        setsuperheros(data.data)
+        const data = await ApiCreate('GET', 'api/v1/users/' + uuid_token + '/super_hero/')
+            .then(res => {
+                setsuperheros(data.data)
+            }).catch(error => {
+                setsuperheros([])
+            })
     }, [])
 
     const settings = {
@@ -44,7 +51,7 @@ function HomePage() {
         infinite: true,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: superHeros.length
+        slidesToScroll: superHeros.length || 0
     };
     return (
         <>
@@ -76,58 +83,59 @@ function HomePage() {
                     </div>
                 </div>
             </Navbar>
-            <div>
-            </div>
+            {
+                <Container breakpoint="desktop" id="container-cadastro">
+                    <h2 className="title is-2 is-white">Favoritos SH</h2>
 
-            <Container breakpoint="fullscreen" id="container-cadastro">
-                <h2 className="title is-2 is-white">Favoritos SH</h2>
-                <div id="carousel-demo" className="carousel">
-                    <Slider {...settings}>
-                        {superHeros.map(item => {
-                            return (
-                                item.stared == true &&
-                                <div className="columns" key={item.toString()}>
-                                    <div className="column" >
-                                        <div className="item-2">
-                                            <div>
-                                                <Card
-                                                    title={item.name}
-                                                    image="https://external-content.duckduckgo.com/iu/?u=https://static.zerochan.net/Superman.(Character).full.2527499.jpg&f=1&nofb=1"
-                                                    description={item.description}
-                                                />
+                    <div id="carousel-demo" className="carousel">
+                        <Slider {...settings}>
+                            {
+                                superHeros.map(item => {
+                                    item.stared == false &&
+
+                                        <div className="columns" key={item.toString()}>
+                                            <div className="column" >
+                                                <div className="item-2">
+                                                    <div>
+                                                        <Card
+                                                            title={item.name}
+                                                            image={item.image}
+                                                            description={item.description}
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </Slider>
-                </div>
-                <h2 className="title is-2 is-white">SuperHero</h2>
-                <div id="carousel-demo" className="carousel">
-                    <Slider {...settings}>
-                        {superHeros.map(item => {
-                            return (
+                                })
+                            }
+                        </Slider>
+                    </div>
+                    <h2 className="title is-2 is-white">SuperHero</h2>
+                    <div id="carousel-demo" className="carousel">
+                        <Slider {...settings}>
+                            {superHeros.map(item => {
                                 item.stared == false &&
-                                <div className="columns" key={item.toString()}>
-                                    <div className="column" >
-                                        <div className="item-2">
-                                            <div>
-                                                <Card
-                                                    title={item.name}
-                                                    image="https://external-content.duckduckgo.com/iu/?u=https://static.zerochan.net/Superman.(Character).full.2527499.jpg&f=1&nofb=1"
-                                                    description={item.description}
-                                                />
+                                    <div className="columns" key={item.toString()}>
+                                        <div className="column" >
+                                            <div className="item-2">
+                                                <div>
+                                                    <Card
+                                                        title={item.name}
+                                                        image={item.image}
+                                                        description={item.description}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })}
-                    </Slider>
-                </div>
-            </Container>
+                            })}
+                        </Slider>
+                    </div>
+                </Container>
+            }
+
         </>
+
     )
 }
 
