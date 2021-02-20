@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button, Container, Notification, Navbar } from 'react-bulma-components'
 import 'bulma/css/bulma.css'
 import navabar_logo from '../../assets/superhero.png'
@@ -25,6 +25,9 @@ async function getSuperHeros() {
 }
 async function getToken() {
     const token = localStorage.getItem('auth-token')
+    if (token==null){
+        return document.location.pathname="/login"
+    }
     ApiCreate('GET', 'get-uuid-token/' + token + '/').then(response => {
         localStorage.setItem('uuid-token', response.data)
         console.log(response.data)
@@ -33,6 +36,7 @@ async function getToken() {
 }
 
 function HomePage() {
+    getToken()
     const [superHeros, setsuperheros] = useState([])
     const [uuid_token, setUuid_token] = useState(localStorage.getItem('uuid-token'))
 
